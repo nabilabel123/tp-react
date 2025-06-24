@@ -53,10 +53,8 @@ Pour chaque exercice :
 - [ ] 1.4 Documenter votre solution ici
 
 _Votre réponse pour l'exercice 1 :_
-```
-Expliquez votre solution ici
-[Ajoutez vos captures d'écran]
-```
+<img width="514" alt="react1" src="https://github.com/user-attachments/assets/e134dc6f-fcc2-4537-8629-ceb455b3e30e" />
+
 
 ### Exercice 2 : Hooks Personnalisés
 #### Objectif : Créer des hooks réutilisables
@@ -67,10 +65,8 @@ Expliquez votre solution ici
 - [ ] 2.4 Documenter votre solution ici
 
 _Votre réponse pour l'exercice 2 :_
-```
-Expliquez votre solution ici
-[Ajoutez vos captures d'écran]
-```
+<img width="661" alt="react2" src="https://github.com/user-attachments/assets/499944e8-9bde-451b-ac19-8182030f223a" />
+
 
 ### Exercice 3 : Optimisation et Context
 #### Objectif : Gérer le thème global et optimiser les rendus
@@ -81,10 +77,10 @@ Expliquez votre solution ici
 - [ ] 3.4 Documenter votre solution ici
 
 _Votre réponse pour l'exercice 3 :_
-```
-Expliquez votre solution ici
-[Ajoutez vos captures d'écran]
-```
+
+<img width="767" alt="react3" src="https://github.com/user-attachments/assets/7bf795b9-4db3-40ba-94d9-73f02ae9e42d" />
+
+<img width="787" alt="react4" src="https://github.com/user-attachments/assets/5105a2fd-2da8-4ab3-8e66-8654f17b54c6" />
 
 ### Exercice 4 : Fonctionnalités avancées
 #### Objectif : Ajouter des fonctionnalités de chargement et détail
@@ -94,11 +90,9 @@ Expliquez votre solution ici
 - [ ] 4.3 Ajouter la fonctionnalité de filtrage par tags
 - [ ] 4.4 Documenter votre solution ici
 
-_Votre réponse pour l'exercice 4 :_
-```
-Expliquez votre solution ici
-[Ajoutez vos captures d'écran]
-```
+
+
+<img width="684" alt="react5" src="https://github.com/user-attachments/assets/cd4d9a53-2d75-4dff-9687-0d4f9ff68675" />
 
 ## Structure détaillée du projet
 
