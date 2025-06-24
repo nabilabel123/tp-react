@@ -1,18 +1,28 @@
-import React, { useCallback } from 'react';
-import { useTheme } from '../context/ThemeContext';
+import { useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
 
-const ThemeToggle = () => {
-  const { theme, toggleTheme } = useTheme();
+export default function ThemeToggle() {
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
-  const handleClick = useCallback(() => {
-    toggleTheme();
-  }, [toggleTheme]);
+  const emoji = theme === "light" ? "🌞" : "🌙";
+  const label = theme === "light" ? "Mode clair" : "Mode sombre";
 
   return (
-    <button onClick={handleClick}>
-      {theme === 'light' ? '🌞 Mode clair' : '🌙 Mode sombre'}
+    <button
+      onClick={toggleTheme}
+      style={{
+        padding: "10px 20px",
+        marginBottom: "20px",
+        borderRadius: "5px",
+        border: "none",
+        cursor: "pointer",
+        backgroundColor: theme === "light" ? "#333" : "#eee",
+        color: theme === "light" ? "#fff" : "#000",
+        fontSize: "1.2rem"
+      }}
+    >
+      {emoji} {label}
     </button>
+    
   );
-};
-
-export default ThemeToggle;
+}

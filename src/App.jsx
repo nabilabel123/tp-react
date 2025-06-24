@@ -1,62 +1,38 @@
-import React, { useState } from 'react';
-import './App.css';
-import usePosts from './hooks/usePosts';
-import useDebounce from './hooks/useDebounce';
-import useLocalStorage from './hooks/useLocalStorage';
-import PostList from './components/PostList';
-import PostSearch from './components/PostSearch';
-import LoadingSpinner from './components/LoadingSpinner';
-import ThemeToggle from './components/ThemeToggle';
-import PostDetails from './components/PostDetails';
+import { useState, useRef, useCallback, useContext, useMemo } from "react";
+import usePosts from "./hooks/usePosts";
+import useIntersectionObserver from "./hooks/useIntersectionObserver";
+import PostList from "./components/PostList";
+import PostSearch from "./components/PostSearch";
+import ThemeToggle from "./components/ThemeToggle";
+import { ThemeContext } from "./context/ThemeContext";
+import "./App.css"; // Assure-toi d'avoir un fichier CSS pour les styles
 
-const App = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const debouncedSearch = useDebounce(searchTerm, 400);
+export default function App() {
+  const { posts, loading, loadMore } = usePosts(); // Assure-toi que usePosts gère loadMore
+  const [filteredPosts, setFilteredPosts] = useState([]);
+  const { theme } = useContext(ThemeContext);
+  const loadMoreRef = useRef();
 
-  const { posts, loading, setPage, hasMore } = usePosts(debouncedSearch);
-  const [selectedPost, setSelectedPost] = useState(null);
-  const [selectedTag, setSelectedTag] = useState('');
+  const postsToDisplay = useMemo(() => (
+    filteredPosts.length > 0 ? filteredPosts : posts
+  ), [filteredPosts, posts]);
 
-  const filteredPosts = posts.filter(
-    post => selectedTag === '' || post.tags?.includes(selectedTag)
-  );
+  const handleSearch = useCallback((filtered) => {
+    setFilteredPosts(filtered);
+  }, []);
 
-  const allTags = [...new Set(posts.flatMap(p => p.tags || []))];
+  useIntersectionObserver(loadMoreRef, () => {
+    if (!loading) loadMore();
+  });
 
   return (
-    <div className="App">
+    <div className={`app-container ${theme}-theme`}>
+      <h1>Liste des Posts</h1>
       <ThemeToggle />
-      <h1>Blog Posts</h1>
-
-      <PostSearch searchTerm={searchTerm} onSearchChange={setSearchTerm} />
-
-      {/* Liste des tags pour filtrer */}
-      <div className="tags-filter">
-        {allTags.map(tag => (
-          <button
-            key={tag}
-            onClick={() => setSelectedTag(tag)}
-            style={{ fontWeight: tag === selectedTag ? 'bold' : 'normal' }}
-          >
-            {tag}
-          </button>
-        ))}
-        {selectedTag && (
-          <button onClick={() => setSelectedTag('')}>Réinitialiser</button>
-        )}
-      </div>
-
-      <PostList
-        posts={filteredPosts}
-        loading={loading}
-        loadMore={() => setPage(prev => prev + 1)}
-        hasMore={hasMore}
-        onSelect={setSelectedPost}
-      />
-
-      <PostDetails post={selectedPost} onClose={() => setSelectedPost(null)} />
+      <PostSearch posts={posts} onSearch={handleSearch} />
+      <PostList posts={postsToDisplay} />
+      <div ref={loadMoreRef} style={{ height: "20px" }}></div>
+      {loading && <p>Chargement...</p>}
     </div>
   );
-};
-
-export default App;
+}

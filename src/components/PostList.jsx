@@ -1,23 +1,23 @@
-import React from 'react';
-import useIntersectionObserver from '../hooks/useIntersectionObserver';
-
-const PostList = ({ posts, onPostClick, loadMore, loading, hasMore }) => {
-  const bottomRef = useIntersectionObserver(() => {
-    if (!loading && hasMore) loadMore();
-  });
+export default function PostList({ posts }) {
+  if (posts.length === 0) {
+    return <p style={{ textAlign: "center" }}>Aucun post trouvé.</p>;
+  }
 
   return (
-    <div>
+    <ul style={{ listStyle: "none", padding: 0 }}>
       {posts.map(post => (
-        <div key={post.id} onClick={() => onPostClick(post)} className="post">
-          <h3>{post.title}</h3>
-          <p>{post.body}</p>
-        </div>
+        <li key={post.id} style={{
+          backgroundColor: "#fff",
+          margin: "10px auto",
+          padding: "15px",
+          borderRadius: "8px",
+          maxWidth: "600px",
+          boxShadow: "0 2px 4px rgba(0,0,0,0.1)"
+        }}>
+          <h3 style={{ color: "#007bff" }}>{post.title}</h3>
+          <p style={{ color: "#555" }}>{post.body}</p>
+        </li>
       ))}
-      <div ref={bottomRef} style={{ height: '20px' }} />
-      {loading && <p>Chargement...</p>}
-    </div>
+    </ul>
   );
-};
-
-export default PostList;
+}
